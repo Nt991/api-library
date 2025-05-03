@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/books")
 public class BookController {
 
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/books")
+    @GetMapping("/all")
     List<Book> findAllBooks() {
        return bookService.getBooks();
     }
 
-    @GetMapping("/book")
-    public ResponseEntity<Book> getBook(@RequestParam long bookId) {
+    @GetMapping("/{book-id}")
+    public ResponseEntity<Book> getBook(@PathVariable("book-id") long bookId) {
         Book book = bookService.getBook(bookId);
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
@@ -35,14 +35,14 @@ public class BookController {
         return books;
     }
 
-    @PatchMapping("/book")
-    public ResponseEntity<Book> updateBorrowingStatus(@RequestParam long bookId){
+    @PatchMapping("/{book-id}")
+    public ResponseEntity<Book> updateBorrowingStatus(@PathVariable("book-id") long bookId){
           Book updatedBook= bookService.updateBorrowingStatus(bookId);
           return new ResponseEntity<>(updatedBook,HttpStatus.OK);
     }
 
-    @DeleteMapping("/book")
-    public ResponseEntity<Book> deleteBook(@RequestParam long bookId) {
+    @DeleteMapping("/{book-id}")
+    public ResponseEntity<Book> deleteBook(@PathVariable("book-id") long bookId) {
         try {
             bookService.deleteBook(bookId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -1,6 +1,5 @@
 package com.api.library.repositories;
 
-import com.api.library.entities.Book;
 import com.api.library.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +10,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findAll();
 
     User findById(long id);
+
+    User findByUsername(String username);
 }
